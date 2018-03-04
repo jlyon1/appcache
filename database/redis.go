@@ -3,6 +3,7 @@ package database
 import (
   "gopkg.in/redis.v5"
   "encoding/json"
+  "time"
   //"fmt"
 )
 
@@ -50,6 +51,18 @@ func (r *Redis) Set(key string, value interface{}) bool{
   return true
 }
 
+func (r *Redis) SetString(key string, value string) bool{
+  r.Client.Set(key,value,0)
+  //fmt.Printf("%v",b)
+  return true
+}
+
 func (r *Redis) Delete(key string) bool{
   return false
+}
+
+func (r *Redis) Expire(key string, val time.Duration) bool{
+  ret, _ := r.Client.Expire(key,time.Duration(val)*time.Second).Result()
+  //fmt.Printf("val " + val)
+  return ret
 }
