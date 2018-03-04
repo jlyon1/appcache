@@ -3,7 +3,7 @@ services:
   redis:
     image: redis:latest
 
-  api:
+  cache:
     build: ./
     ports:
       - "8080:8080"

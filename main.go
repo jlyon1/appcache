@@ -18,7 +18,7 @@ func connectDB(db *database.Redis) {
 
 func main() {
 	cachestore := &database.Redis{}
-	cachestore.IP = "localhost"
+	cachestore.IP = "redis"
 	cachestore.Port = "6379"
 	cachestore.DB = 0
 	cachestore.Password = ""
