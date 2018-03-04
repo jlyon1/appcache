@@ -9,7 +9,10 @@ import (
 )
 
 func connectDB(db *database.Redis) {
-	fmt.Printf("Connected: %v\n", db.Connect())
+  while(!db.Connect()){
+    fmt.Printf("Trying to connect"))
+  }
+  fmt.Printf("Connected")
 
 }
 
