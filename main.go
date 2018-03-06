@@ -63,7 +63,7 @@ func cacheItems() {
 }
 
 func main() {
-	cachestore.IP = "127.0.0.1"
+	cachestore.IP = "redis"
 	cachestore.Port = "6379"
 	cachestore.DB = 0
 	cachestore.Password = ""
