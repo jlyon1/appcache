@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/jlyon1/appcache/database"
-	"io/ioutil"
 	"net/http"
 	"time"
 )
@@ -45,34 +44,8 @@ func (api *API) Ask(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(val))
 		return
 	} else {
-
 		log("Not Found in cache " + cache.Address)
-		resp, err := http.Get(cache.Address)
-
-		if err != nil {
-			log("Cache Error " + cache.Address)
-			http.Error(w, err.Error(), 500)
-			return
-		}
-
-		bdyString := ""
-
-		defer resp.Body.Close()
-		if resp.StatusCode == http.StatusOK {
-			bdy, _ := ioutil.ReadAll(resp.Body)
-			bdyString = string(bdy)
-		}
-		w.Write([]byte(bdyString))
-
-		api.DB.SetString("cr"+cache.Address, bdyString)
-
-		if cache.TTL <= 0 {
-			api.DB.Expire("cr"+cache.Address, time.Duration(60))
-		} else {
-			api.DB.Expire("cr"+cache.Address, time.Duration(cache.TTL))
-
-		}
-
+		http.Error(w, "Not found in cache", 500)
 	}
 
 }
